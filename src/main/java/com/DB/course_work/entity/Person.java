@@ -1,6 +1,7 @@
 package com.DB.course_work.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
