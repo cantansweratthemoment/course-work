@@ -15,5 +15,5 @@ public class Manager {
     private String name;
     @Column
     private String type;
-    @OneToMany
+//    @OneToMany
 }

@@ -16,7 +16,7 @@ public class Location {
     private String name;
     @Column
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "id_area")
-    private Area area;
+//    @ManyToOne
+//    @JoinColumn(name = "id_area")
+//    private Area area;
 }
