@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 
 const theme = createTheme();
 
@@ -68,6 +69,26 @@ export default function Login() {
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Sign In
+                        </Button>
+                        <Typography component="h4" variant="h10">
+                            Don't have an account?
+                        </Typography>
+                        <FormControl component="fieldset">
+                            <FormLabel component="legend">Who are you?</FormLabel>
+                            <RadioGroup row aria-label="role" name="row-radio-buttons-group">
+                                <FormControlLabel value="Manager" control={<Radio />} label="Manager" />
+                                <FormControlLabel value="Athlete" control={<Radio />} label="Athlete" />
+                                <FormControlLabel value="Staff" control={<Radio />} label="Staff" />
+                            </RadioGroup>
+                        </FormControl>
+                        <Button
+                            type="submit"
+                            color="primary"
+                            variant="outlined"
+                            fullWidth
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign Up
                         </Button>
                     </Box>
                 </Box>
