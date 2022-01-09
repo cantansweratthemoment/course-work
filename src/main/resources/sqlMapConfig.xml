@@ -16,6 +16,20 @@
         </environment>
     </environments>
     <mappers>
+        <mapper class="com.DB.course_work.DAO.mapper.AthleteMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.BuildingMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.CanteenMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.ChurchMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.DormitoryMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.EventMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.Info_olympic_villageMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.Location_PersonMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.LocationMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.Ov_areaMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.PersonMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.Staff_VolunteersMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.Training_PlaceMapper"/>
         <mapper class="com.DB.course_work.DAO.mapper.UsersMapper"/>
+        <mapper class="com.DB.course_work.DAO.mapper.Workplace_staffMapper"/>
     </mappers>
 </configuration>

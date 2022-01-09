@@ -23,10 +23,10 @@ public class MybatisTest {
     public void test(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         UsersMapper mapper = sqlSession.getMapper(UsersMapper.class);
-        List<Users> users = mapper.getUsers();
-        for(Users user: users){
-            System.out.println(user);
-        }
+        Users users = mapper.findUserById(1);
+//        for(Users user: users){
+            System.out.println(users);
+//        }
         sqlSession.close();
     }
 }
