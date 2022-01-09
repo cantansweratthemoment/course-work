@@ -318,7 +318,7 @@ create table manager
 
 alter table person
     add constraint "person_ID_Manager_fkey"
-        foreign key ("ID_Manager") references manager;
+        foreign key (id_manager) references manager;
 
 create table "Users"
 (
