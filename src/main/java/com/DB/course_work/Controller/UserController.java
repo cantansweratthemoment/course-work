@@ -1,15 +1,23 @@
 package com.DB.course_work.Controller;
 
 import com.DB.course_work.DAO.entities.Athlete;
+import com.DB.course_work.DAO.entities.Location_Person;
+import com.DB.course_work.DAO.entities.Person;
 import com.DB.course_work.DAO.entities.Users;
 import com.DB.course_work.DAO.utils.JsonResult;
 import com.DB.course_work.Service.IUserService;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("users")
@@ -41,19 +49,23 @@ public class UserController extends BasicController {
 
     /**
      * Example:
-     * http://localhost:8080/users/login?userName=user0012&password=123456
+     * http://localhost:8080/users/login/user0012/123456
      */
     @RequestMapping("/login/{username}/{password}")
-    public JsonResult<Users> login(@PathVariable String username,
-                                   @PathVariable String password,
-                                   HttpSession session) {
+    public JsonResult<HashMap<String,String>> login(@PathVariable String username,
+                                                    @PathVariable String password,
+                                                    HttpSession session) {
         Users data = userService.login(username, password);
         session.setAttribute("uid", data.getId());
         session.setAttribute("username", data.getLogin());
 
         System.out.println(getuidFromSession(session));
         System.out.println(getUserNameFromSession(session));
-        return new JsonResult<Users>(OK, data);
+
+        HashMap<String, String> results = new HashMap<>();
+        results.put("username", data.getLogin());
+        results.put("role", data.getRole().toString());
+        return new JsonResult<>(OK, results);
     }
 
     public void registerAsSV(Integer userId) {
