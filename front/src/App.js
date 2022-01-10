@@ -22,9 +22,8 @@ class App extends Component {
       { console.log(this.props.store.getState().login)}
       {
         <div style={{height:"100vh"}}>
-          {//this.props.store.getState().login === null ? <Main/> :<Login/>
+          {this.props.store.getState().login !== null ? <Main role={this.props.store.getState().role} login = {this.props.store.getState().login}/> :<Login/>
              }
-             <Main role={this.props.store.getState().role} login = {this.props.store.getState().login}/>
         </div>}
     </div>)
 

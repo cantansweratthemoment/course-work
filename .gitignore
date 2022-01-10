@@ -3,3 +3,6 @@
 HELP.md
 front/node_modules/
 .DS_Store
+target/
+front/build/
+src/main/webapp/
