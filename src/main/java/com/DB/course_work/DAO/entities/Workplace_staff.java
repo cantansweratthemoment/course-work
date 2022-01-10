@@ -18,4 +18,17 @@ public class Workplace_staff implements Serializable {
     private Location location;
 
     private Building building;
+
+    public Integer getId_loc(){
+        if (location != null){
+            return location.getId();
+        }else return null;
+    }
+
+    public Integer getId_building(){
+        if (building != null){
+            return building.getId();
+        }else return null;
+    }
+
 }

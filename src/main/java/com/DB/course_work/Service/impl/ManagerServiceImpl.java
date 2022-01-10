@@ -29,6 +29,8 @@ public class ManagerServiceImpl implements ManagerService {
     private BuildingMapper buildingMapper;
     @Autowired
     private EventMapper eventMapper;
+    @Autowired
+    private Workplace_staffMapper workplace_staffMapper;
 
     @Override
     public List<Athlete> findOwnAthletes(String login) {
@@ -91,7 +93,18 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void setLocForStaff(Integer staffId, Integer locId) {
-        // TODO: 2022/1/9  
+    public void setWorkplaceForStaff(Integer staffId, Integer locId, Integer BuildingId, String details) {
+        Workplace_staff workplace_staff = new Workplace_staff();
+        workplace_staff.setBuilding(new Building(BuildingId,null,null,null,null,null));
+        workplace_staff.setLocation(new Location(locId, null, null, null));
+        workplace_staff.setDetails(details);
+        Integer result = workplace_staffMapper.insertWorkplace_staff(workplace_staff);
+        if (result != 1){
+            throw new InsertException("Problem about set location or building to staffs and volunteers as workplace.");
+        } else System.out.println("Insert workplace_staff successfully!");
+
+        Integer id_ws = workplace_staff.getId();
+        Integer result2 = staff_volunteersMapper.setWorkplaceToSV(id_ws, staffId);
+        if (result2 != 1) throw new UpdateException("Exception when set id_ws for SV.");
     }
 }
