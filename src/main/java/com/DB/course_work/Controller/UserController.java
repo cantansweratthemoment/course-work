@@ -30,12 +30,16 @@ public class UserController extends BasicController {
     /**
      * Example:
      * http://localhost:8080/users/reg/user0010/123456/0/Siyuan
-     * */ public JsonResult<Void> register(Users user, @PathVariable String realName) {
+     * */ public JsonResult<HashMap<String, String>> register(Users user, @PathVariable String realName) {
         Integer userId = userService.BasicReg(user);
         userService.regAsPerson(user, realName);
 
+        HashMap<String, String> results = new HashMap<>();
+        results.put("username", user.getLogin());
+        results.put("role", user.getRole().toString());
+
         if (user.getRole() == 1) registerAsSV(userId);
-        return new JsonResult<>(OK);
+        return new JsonResult<>(OK, results);
     }
 
     @RequestMapping("/reg/athlete/{login}/{height}/{weight}/{nationality}/{sport}")
