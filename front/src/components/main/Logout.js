@@ -5,10 +5,10 @@ import {IconButton} from "@mui/material";
 
 function Logout() {
     const logout = e => {
-        store.dispatch({type: "change", value: null});
+        store.dispatch({type: "change_login", value: null});
         console.log(store.getState());
     }
-    return ( <IconButton aria-label="logout" onClick={logout}><LogoutIcon/></IconButton>
+    return ( <IconButton aria-label="logout" color="secondary" size="large" onClick={logout} ><LogoutIcon/></IconButton>
     )
 }
 export default Logout

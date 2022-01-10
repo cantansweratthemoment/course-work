@@ -10,35 +10,35 @@ import SetEvent from "./actions/manager_actions/SetEvent";
 import {Grid} from "@mui/material";
 import Container from "@mui/material/Container";
 
-function ManagerActionBox() {
+function ManagerActionBox(props) {
     return (<div id="manager_action_box">
         <Container maxWidth="lg" sx={{marginTop: 3}}>
         <Grid container spacing={0} >
             <Grid item xs={6}>
-                <ListOfManaged/>
+                <ListOfManaged login = {props.login} role = {props.role}/>
             </Grid>
             <Grid item xs={6}>
-                <SetNextTraining/>
+                <SetNextTraining login = {props.login} role = {props.role}/>
             </Grid>
             <Grid item xs={6}>
-                <Buildings/>
+                <Buildings login = {props.login} role = {props.role}/>
             </Grid>
             <Grid item xs={6}>
-                <ListOfPeopleWithoutAManager/>
+                <ListOfPeopleWithoutAManager login = {props.login} role = {props.role}/>
             </Grid>
         </Grid>
         <Grid container spacing={0}>
             <Grid item xs={6}>
-                <Locations/>
+                <Locations login = {props.login} role = {props.role}/>
             </Grid>
             <Grid item xs={6}>
-                <ManageNewPerson/>
+                <ManageNewPerson login = {props.login} role = {props.role}/>
             </Grid>
             <Grid item xs={6}>
-                <ManageStaff/>
+                <ManageStaff login = {props.login} role = {props.role}/>
             </Grid>
             <Grid item xs={6}>
-                <SetEvent/>
+                <SetEvent login = {props.login} role = {props.role}/>
             </Grid>
         </Grid>
         </Container>

@@ -5,26 +5,85 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {useState} from "react";
+import store from "../../app/store";
+import {Alert, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 
 const theme = createTheme();
 
 export default function Login() {
-    const handleSubmit = (event) => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("0");
+    const [loginError, setLoginError] = useState(false);
+    const [signUpError, setSignUpError] = useState(false);
+    const handleLogIn = (event) => {
+        setLoginError(false);
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
         console.log({
-            email: data.get('username'),
-            password: data.get('password'),
+            email: username,
+            password: password,
+            role: role
         });
+        let information = {
+            "login": username, "password": password
+        };
+        let body = [];
+        for (const inf in information) {
+            body.push(inf + "=" + information[inf]);
+        }
+        console.log(body);
+        body = "?" + body.join("&");
+        fetch("/login" + body, {
+            method: "POST"
+        }).then(response => response.json().then(json => {
+                if (response.ok) {
+                    console.log(json)
+                    store.dispatch({type: "change_login", value: json.login});
+                    store.dispatch({type: "change_role", value: json.role});
+                } else {
+                    setLoginError(true);
+                }
+            }
+        ))
+    };
+
+    const handleSignUp = (event) => {
+        setSignUpError(false);
+        event.preventDefault();
+        console.log({
+            email: username,
+            password: password,
+            role: role
+        });
+        let information = {
+            "login": username, "password": password, "role": role
+        };
+        let body = [];
+        for (const inf in information) {
+            body.push(inf + "=" + information[inf]);
+        }
+        console.log(body);
+        body = "?" + body.join("&");
+        fetch("/signup" + body, {
+            method: "POST"
+        }).then(response => response.json().then(json => {
+                if (response.ok) {
+                    console.log(json)
+                    store.dispatch({type: "change_login", value: json.login});
+                    store.dispatch({type: "change_role", value: json.role});
+                } else {
+                    setSignUpError(true);
+                }
+            }
+        ))
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -40,7 +99,7 @@ export default function Login() {
                         Enter your credentials to access your account.
                     </Typography>
 
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
@@ -50,6 +109,8 @@ export default function Login() {
                             name="username"
                             autoComplete="username"
                             autoFocus
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <TextField
                             margin="normal"
@@ -60,36 +121,41 @@ export default function Login() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button
-                            type="submit"
                             color="primary"
                             variant="outlined"
                             fullWidth
-                            sx={{ mt: 3, mb: 2 }}
+                            onClick={handleLogIn}
+                            sx={{mt: 3, mb: 2}}
                         >
-                            Sign In
+                            Log In
                         </Button>
+                        {loginError ? <Alert severity="error">You cannot log in - wrong info!</Alert> : ''}
                         <Typography component="h4" variant="h10">
                             Don't have an account?
                         </Typography>
                         <FormControl component="fieldset">
                             <FormLabel component="legend">Who are you?</FormLabel>
-                            <RadioGroup row aria-label="role" name="row-radio-buttons-group">
-                                <FormControlLabel value="Manager" control={<Radio />} label="Manager" />
-                                <FormControlLabel value="Athlete" control={<Radio />} label="Athlete" />
-                                <FormControlLabel value="Staff" control={<Radio />} label="Staff" />
+                            <RadioGroup row aria-label="role" name="row-radio-buttons-group" value={role}
+                                        onChange={(e) => setRole(e.target.value)}>
+                                <FormControlLabel value="2" control={<Radio/>} label="Manager"/>
+                                <FormControlLabel value="0" control={<Radio/>} label="Athlete"/>
+                                <FormControlLabel value="1" control={<Radio/>} label="Staff"/>
                             </RadioGroup>
                         </FormControl>
                         <Button
-                            type="submit"
                             color="primary"
                             variant="outlined"
                             fullWidth
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{mt: 3, mb: 2}}
+                            onClick={handleSignUp}
                         >
                             Sign Up
                         </Button>
+                        {signUpError ? <Alert severity="error">You cannot sign up!</Alert> : ''}
                     </Box>
                 </Box>
             </Container>

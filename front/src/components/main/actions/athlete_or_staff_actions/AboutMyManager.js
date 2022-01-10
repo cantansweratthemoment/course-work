@@ -3,11 +3,27 @@ import Button from "@mui/material/Button";
 import InfoIcon from '@mui/icons-material/Info';
 import Box from "@mui/material/Box";
 
-function AboutMyManager() {
+function AboutMyManager(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        let information = {
+            "login": props.login
+        };
+        let body = [];
+        for (const inf in information) {
+            body.push(inf + "=" + information[inf]);
+        }
+        console.log(body);
+        body = "?" + body.join("&");
+        fetch("/about_my_manager" + body, {
+            method: "POST"
+        }).then(response => response.json().then(json => {
+                if (response.ok) {
+                    console.log(json)
+                }
+            }
+        ))
     };
 
     return (<div id="about_my_manager">

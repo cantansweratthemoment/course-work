@@ -5,11 +5,11 @@ import ManagerActionBox from "./ManagerActionBox";
 import AthleteOrStaffActionBox from "./AthleteOrStaffActionBox";
 import Logout from "./Logout";
 
-function Main() {
+function Main(props) {
     return (<div id="maindiv">
-        <Header/>
-        <AthleteOrStaffActionBox/>
         <Logout/>
+        <Header/>
+        {props.role === 2 ? <ManagerActionBox login = {props.login} role = {props.role}/> :<AthleteOrStaffActionBox login = {props.login} role = {props.role}/>}
     </div>)
 }
 export default Main

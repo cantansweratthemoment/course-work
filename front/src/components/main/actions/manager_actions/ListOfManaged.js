@@ -3,11 +3,26 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 
-function ListOfManaged() {
-
+function ListOfManaged(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        let information = {
+            "login": props.login
+        };
+        let body = [];
+        for (const inf in information) {
+            body.push(inf + "=" + information[inf]);
+        }
+        console.log(body);
+        body = "?" + body.join("&");
+        fetch("/list_of_managed" + body, {
+            method: "POST"
+        }).then(response => response.json().then(json => {
+                if (response.ok) {
+                    console.log(json)
+                }
+            }
+        ))
     };
 
     return (<div id="list_of_managed">

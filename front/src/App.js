@@ -6,6 +6,7 @@ import '@fontsource/roboto/700.css';
 
 import Main from "./components/main/Main";
 import Login from "./components/login/Login";
+import ManagerActionBox from "./components/main/ManagerActionBox";
 
 class App extends Component {
   componentDidMount() {
@@ -19,9 +20,11 @@ class App extends Component {
       backgroundColor: "#f1faee",
     }}>
       { console.log(this.props.store.getState().login)}
-      {//this.props.store.getState().login !== null ? <Mainpageexample/> :
+      {
         <div style={{height:"100vh"}}>
-        <Main/>
+          {//this.props.store.getState().login === null ? <Main/> :<Login/>
+             }
+             <Main role={this.props.store.getState().role} login = {this.props.store.getState().login}/>
         </div>}
     </div>)
 
