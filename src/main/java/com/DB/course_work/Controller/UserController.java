@@ -30,7 +30,8 @@ public class UserController extends BasicController {
     /**
      * Example:
      * http://localhost:8080/users/reg/user0010/123456/0/Siyuan
-     * */ public JsonResult<HashMap<String, String>> register(Users user, @PathVariable String realName) {
+     * */
+    public JsonResult<HashMap<String, String>> register(Users user, @PathVariable String realName) {
         Integer userId = userService.BasicReg(user);
         userService.regAsPerson(user, realName);
 
@@ -46,7 +47,8 @@ public class UserController extends BasicController {
     /**
      * Example:
      * http://localhost:8080/users/reg/athlete/user0010/01/01/CN/Football
-     * */ public JsonResult<Void> registerAsAthlete(Athlete athlete, @PathVariable String login) {
+     * */
+    public JsonResult<Void> registerAsAthlete(Athlete athlete, @PathVariable String login) {
         userService.regAsAthlete(login, athlete);
         return new JsonResult<>(OK);
     }
