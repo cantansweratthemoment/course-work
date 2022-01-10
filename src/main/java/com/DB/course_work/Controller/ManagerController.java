@@ -28,7 +28,8 @@ public class ManagerController extends BasicController{
 
     @RequestMapping("/manageList/1")
     public JsonResult<List<Staff_Volunteers>> findSVBeManaged(HttpSession session){
-        List<Staff_Volunteers> SVList = managerService.findOwnStaffVolunteers("username");
+        String username = (String) session.getAttribute("username");
+        List<Staff_Volunteers> SVList = managerService.findOwnStaffVolunteers(username);
         return new JsonResult<>(OK, SVList);
     }
 
