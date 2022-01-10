@@ -23,8 +23,8 @@ public interface UsersMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     Integer createUser(Users users);
 
-    @Update("update users set id_person = {id_person} where login = #{login}")
-    Integer updatePersonId(String login, Integer personId);
+    @Update("update users set id_person = #{id_person} where login = #{login}")
+    Integer updatePersonId(String login, Integer id_person);
 
     @Select("select id from users where login = #{login}")
     Integer findIdByLogin(String login);

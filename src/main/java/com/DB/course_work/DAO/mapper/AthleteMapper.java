@@ -5,6 +5,7 @@ package com.DB.course_work.DAO.mapper;
 import com.DB.course_work.DAO.entities.Athlete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -20,9 +21,9 @@ public interface AthleteMapper {
     @Select("select * from athlete where id = #{id}")
     Athlete findAthleteById(Integer id);
 
-    @Insert("insert into athlete(height, weight, nationality, sport, record, id_person) " +
-            "values (#{height}, #{weight}, #{nationality}, #{sport}, #{record}, #{id_person})")
-    int createAthlete(double height, double weight, String nationality, String sport, String record, Integer id_person);
+    @Insert("insert into athlete(\"height(cm)\", \"weight(kg)\", nationality, sport, record, id_person)\n" + "values (#{height}, #{weight}, #{nationality}, #{sport}, #{record}, #{id_person})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    int createAthlete(Athlete athlete);
 
     @Select("select * from athlete where id_person = #{id_person}")
     Athlete findAthleteByIdPerson(Integer id_person);

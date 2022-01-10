@@ -1,9 +1,6 @@
 package com.DB.course_work.Service.impl;
 
-import com.DB.course_work.DAO.entities.Athlete;
-import com.DB.course_work.DAO.entities.Person;
-import com.DB.course_work.DAO.entities.Staff_Volunteers;
-import com.DB.course_work.DAO.entities.Users;
+import com.DB.course_work.DAO.entities.*;
 import com.DB.course_work.DAO.mapper.AthleteMapper;
 import com.DB.course_work.DAO.mapper.PersonMapper;
 import com.DB.course_work.DAO.mapper.Staff_VolunteersMapper;
@@ -21,6 +18,7 @@ import java.util.UUID;
 public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private UsersMapper usersMapper;
+
     @Autowired
     private PersonMapper personMapper;
 
@@ -31,7 +29,7 @@ public class RegisterServiceImpl implements RegisterService {
     private Staff_VolunteersMapper staff_volunteersMapper;
 
     @Override
-    public void BasicReg(Users users) {
+    public Integer BasicReg(Users users) {
         // Check if the username has existed.
         String username = users.getLogin();
         Users result = usersMapper.findUserByLogin(username);
@@ -51,23 +49,34 @@ public class RegisterServiceImpl implements RegisterService {
         if (rows != 1) {
             throw new InsertException("Exception about insert instruction.");
         }
+
+        return users.getId();
     }
 
     @Override
-    public void regAsPerson(Users user, Person person) {
+    public void regAsPerson(Users user, String personName) {
+        Person person = new Person(null, personName, null, null);
         personMapper.createPerson(person);
-        usersMapper.updatePersonId(user.getLogin(), person.getId());
+        Integer id = person.getId();
+        usersMapper.updatePersonId(user.getLogin(), id);
     }
 
     @Override
-    public void regAsAthlete(Integer userId, Athlete athlete) {
-
+    public void regAsAthlete(String login, Athlete athlete) {
+        Users user = usersMapper.findUserByLogin(login);
+        Person person = personMapper.findPersonById(user.getId_person());
+        Integer personId = person.getId();
+        athlete.setId_person(personId);
+        athleteMapper.createAthlete(athlete);
     }
 
 
     @Override
-    public void regAsSV(Integer userId, Staff_Volunteers SV) {
-
+    public void regAsSV(Integer userId) {
+        Users user = usersMapper.findUserById(userId);
+        Person person = personMapper.findPersonById(user.getId_person());
+        Staff_Volunteers SV = new Staff_Volunteers(null, new Workplace_staff(), person);
+        staff_volunteersMapper.createSV(SV);
     }
 
     private String getMD5Password(String password, String salt) {

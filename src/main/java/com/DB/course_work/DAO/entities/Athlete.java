@@ -30,4 +30,8 @@ public class Athlete implements Serializable {
     public Integer getId_person(){
         return person.getId();
     }
+
+    public void setId_person(Integer id){
+        this.person = new Person(id, null, null, null);
+    }
 }

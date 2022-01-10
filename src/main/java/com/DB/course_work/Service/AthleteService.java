@@ -11,5 +11,5 @@ public interface AthleteService {
     Person findManagerByLogin(String SALogin);
     List<Event> findOwnEvents(Integer AthleteId);
     List<Location> findAllLocations();
-    Building findBuildingsByLocId(Integer LocationId);
+    List<Building> findBuildingsByLocId(Integer LocationId);
 }

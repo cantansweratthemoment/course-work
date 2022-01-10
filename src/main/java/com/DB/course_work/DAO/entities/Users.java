@@ -15,7 +15,7 @@ public class Users implements Serializable {
 
     // login is username.
     private String login;
-
+    // 0: Athlete, 1: staff and volunteer, 2: manager
     private Integer role;
 
     private String password;
@@ -26,5 +26,9 @@ public class Users implements Serializable {
 
     public Integer getId_person(){
         return person.getId();
+    }
+
+    public void setId_person(Integer id){
+        this.person = new Person(id,null, null,null);
     }
 }

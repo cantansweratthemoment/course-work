@@ -1,8 +1,11 @@
 package com.DB.course_work.Service.impl;
 
-import com.DB.course_work.DAO.entities.*;
+import com.DB.course_work.DAO.entities.Building;
+import com.DB.course_work.DAO.entities.Event;
+import com.DB.course_work.DAO.entities.Location;
+import com.DB.course_work.DAO.entities.Person;
 import com.DB.course_work.DAO.mapper.*;
-import com.DB.course_work.Service.AthleteService;
+import com.DB.course_work.Service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +13,7 @@ import java.time.Period;
 import java.util.List;
 
 @Service
-public class AthleteServiceImpl implements AthleteService {
+public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private UsersMapper usersMapper;
@@ -30,8 +33,8 @@ public class AthleteServiceImpl implements AthleteService {
     }
 
     @Override
-    public List<Event> findOwnEvents(Integer AthleteId) {
-        return eventMapper.findEventsByPersonId(AthleteId);
+    public List<Event> findOwnEvents(Integer personId) {
+        return eventMapper.findEventsByPersonId(personId);
     }
 
     @Override

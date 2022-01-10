@@ -16,7 +16,7 @@ public interface PersonMapper{
     @Select("select * from person where id = #{id}")
     Person findPersonById(Integer id);
 
-    @Insert("insert into person(name) values (#(name))")
+    @Insert("insert into person(name) values (#{name})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     Integer createPerson(Person person);
 

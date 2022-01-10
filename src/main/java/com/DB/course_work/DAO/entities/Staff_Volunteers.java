@@ -24,4 +24,8 @@ public class Staff_Volunteers implements Serializable {
     public Integer getId_ws(){
         return workplace_staff.getId();
     }
+
+    public void setId_person(Integer id){
+        this.person.setId(id);
+    }
 }
