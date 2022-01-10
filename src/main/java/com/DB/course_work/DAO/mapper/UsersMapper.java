@@ -28,4 +28,7 @@ public interface UsersMapper {
 
     @Select("select id from users where login = #{login}")
     Integer findIdByLogin(String login);
+
+    @Select("select salt from users where login = #{login}")
+    String findSaltByLogin(String login);
 }

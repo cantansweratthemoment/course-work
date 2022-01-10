@@ -18,4 +18,5 @@
     <mappers>
         <package name="com.DB.course_work.DAO.mapper"/>
     </mappers>
+
 </configuration>

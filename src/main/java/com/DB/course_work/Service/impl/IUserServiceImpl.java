@@ -6,8 +6,10 @@ import com.DB.course_work.DAO.mapper.PersonMapper;
 import com.DB.course_work.DAO.mapper.Staff_VolunteersMapper;
 import com.DB.course_work.DAO.mapper.UsersMapper;
 import com.DB.course_work.Service.Exceptions.InsertException;
+import com.DB.course_work.Service.Exceptions.PasswordNotMatchException;
+import com.DB.course_work.Service.Exceptions.UserNotFoundException;
 import com.DB.course_work.Service.Exceptions.UsernameDuplicatedException;
-import com.DB.course_work.Service.RegisterService;
+import com.DB.course_work.Service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -15,7 +17,7 @@ import org.springframework.util.DigestUtils;
 import java.util.UUID;
 
 @Service
-public class RegisterServiceImpl implements RegisterService {
+public class IUserServiceImpl implements IUserService {
     @Autowired
     private UsersMapper usersMapper;
 
@@ -79,8 +81,30 @@ public class RegisterServiceImpl implements RegisterService {
         staff_volunteersMapper.createSV(SV);
     }
 
+    @Override
+    public Users login(String username, String password) {
+        // Check username in DB.
+        Users result = usersMapper.findUserByLogin(username);
+        if (result == null){
+            throw new UserNotFoundException("You have not registered.");
+        }
+        String oldMD5Password = result.getPassword();
+        String salt = usersMapper.findSaltByLogin(username);
+        String newMD5Password = getMD5Password(password, salt);
+
+        if(!newMD5Password.equals(oldMD5Password)){
+            throw new PasswordNotMatchException("Wrong Password");
+        }
+
+        // No need salt for frontend.
+        result.setSalt(null);
+
+        return result;
+    }
+
+
     private String getMD5Password(String password, String salt) {
-        // md5
+        // md5. 3 times encrypt.
         for (int i = 0; i < 3; i++) {
             password = DigestUtils.md5DigestAsHex((salt + password + salt).getBytes()).toUpperCase();
         }

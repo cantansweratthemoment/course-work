@@ -2,7 +2,7 @@ package com.DB.course_work.serviceTest;
 
 import com.DB.course_work.DAO.entities.Users;
 import com.DB.course_work.Service.Exceptions.ServiceException;
-import com.DB.course_work.Service.RegisterService;
+import com.DB.course_work.Service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class UserServiceTest {
     @Autowired
-    private RegisterService userService;
+    private IUserService userService;
 
     @Test
     public void reg() {
