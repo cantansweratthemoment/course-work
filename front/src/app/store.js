@@ -1,7 +1,7 @@
 import {createStore} from "redux";
 
 const initialState = {
-    login: sessionStorage.getItem("login"),
+    login: null,
     role: sessionStorage.getItem("role")
 };
 

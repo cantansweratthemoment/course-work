@@ -27,21 +27,26 @@ export default function Login() {
             role: role
         });
         let information = {
-            "login": username, "password": password
+            "username": username, "password": password
         };
         let body = [];
         for (const inf in information) {
-            body.push(inf + "=" + information[inf]);
+            body.push("/" + information[inf]);
         }
         console.log(body);
-        body = "?" + body.join("&");
-        fetch("/login" + body, {
+        body = body.join("");
+        console.log(body);
+        fetch("users/login" + body, {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     console.log(json)
-                    store.dispatch({type: "change_login", value: json.login});
-                    store.dispatch({type: "change_role", value: json.role});
+                    if (json.state === 200) {
+                        store.dispatch({type: "change_login", value: json.data.username});
+                        store.dispatch({type: "change_role", value: json.data.role});
+                    } else {
+                        setLoginError(true);
+                    }
                 } else {
                     setLoginError(true);
                 }
@@ -55,24 +60,31 @@ export default function Login() {
         console.log({
             email: username,
             password: password,
-            role: role
+            role: role,
+            name: "placeholder"
         });
         let information = {
-            "login": username, "password": password, "role": role
+            "login": username, "password": password, "role": role, "realName" : "placeholder"
         };
         let body = [];
         for (const inf in information) {
-            body.push(inf + "=" + information[inf]);
+            body.push("/" + information[inf]);
         }
         console.log(body);
-        body = "?" + body.join("&");
-        fetch("/signup" + body, {
+        body = body.join("");
+        console.log(body);
+        fetch("users/reg" + body, {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     console.log(json)
-                    store.dispatch({type: "change_login", value: json.login});
-                    store.dispatch({type: "change_role", value: json.role});
+                    if (json.state === 200) {
+                        store.dispatch({type: "change_login", value: json.data.username});
+                        store.dispatch({type: "change_role", value: json.data.role});
+
+                    } else {
+                        setSignUpError(true);
+                    }
                 } else {
                     setSignUpError(true);
                 }
