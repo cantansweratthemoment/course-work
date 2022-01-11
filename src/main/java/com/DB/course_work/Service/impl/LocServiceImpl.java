@@ -1,5 +1,6 @@
 package com.DB.course_work.Service.impl;
 
+import com.DB.course_work.DAO.entities.Building;
 import com.DB.course_work.DAO.entities.Location;
 import com.DB.course_work.DAO.mapper.LocationMapper;
 import com.DB.course_work.Service.LocService;
@@ -17,5 +18,10 @@ public class LocServiceImpl implements LocService {
     @Override
     public List<Location> findAllLocInfo() {
         return locationMapper.getAllLocation();
+    }
+
+    @Override
+    public List<Building> findBuildingsByLocId(Integer LocId) {
+        return locationMapper.findBuildingsByLocId(LocId);
     }
 }

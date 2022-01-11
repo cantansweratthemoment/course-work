@@ -1,5 +1,6 @@
 package com.DB.course_work.DAO.mapper;
 
+import com.DB.course_work.DAO.entities.Building;
 import com.DB.course_work.DAO.entities.Location;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -13,4 +14,7 @@ import java.util.List;
 public interface LocationMapper{
     @Select("select * from Location")
     List<Location> getAllLocation();
+
+    @Select("select * from building where id_loc = #{idLoc}")
+    List<Building> findBuildingsByLocId(Integer idLoc);
 }

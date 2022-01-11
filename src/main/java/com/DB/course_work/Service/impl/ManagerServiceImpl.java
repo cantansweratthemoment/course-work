@@ -34,8 +34,9 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Athlete> findOwnAthletes(String login) {
-        Integer managerId = usersMapper.findIdByLogin(login);
-        List<Person> ListOfAthletesAsPerson = personMapper.findPersonByIdManager(managerId);
+        Users managerUser = usersMapper.findUserByLogin(login);
+        Integer managerPersonId = managerUser.getId_person();
+        List<Person> ListOfAthletesAsPerson = personMapper.findPersonByIdManager(managerPersonId);
         List<Athlete> result = new ArrayList<>(ListOfAthletesAsPerson.size());
         for (Person person : ListOfAthletesAsPerson) {
             Athlete athlete = athleteMapper.findAthleteByIdPerson(person.getId());
@@ -46,8 +47,9 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Staff_Volunteers> findOwnStaffVolunteers(String login) {
-        Integer managerId = usersMapper.findIdByLogin(login);
-        List<Person> ListOfSVAsPerson = personMapper.findPersonByIdManager(managerId);
+        Users managerUser = usersMapper.findUserByLogin(login);
+        Integer managerPersonId = managerUser.getId_person();
+        List<Person> ListOfSVAsPerson = personMapper.findPersonByIdManager(managerPersonId);
         List<Staff_Volunteers> result = new ArrayList<>(ListOfSVAsPerson.size());
         for (Person person : ListOfSVAsPerson) {
             Staff_Volunteers SV = staff_volunteersMapper.findSVByIdPerson(person.getId());
@@ -68,19 +70,29 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Person> findAllPersonHasNoManager() {
-        return personMapper.findPersonByIdManager(null);
+        return personMapper.findAllASNoManager();
     }
 
     @Override
-    public void setManager(Integer managerId, Integer SAId) throws ServiceException {
+    public void setManagerById(Integer managerId, Integer SAId) throws ServiceException {
         Integer result = personMapper.updateManagementRelationship(managerId, SAId);
         if (result != 1) throw new UpdateException("Exception about update manager and SV.");
     }
 
-    @Override
+    public void setManagerByUsername(String username, String SAUsername) throws ServiceException {
+        Users userManager = usersMapper.findUserByLogin(username);
+        Integer idPersonManager = userManager.getId_person();
+        Users SAUser = usersMapper.findUserByLogin(SAUsername);
+        Integer SAPersonId = SAUser.getId_person();
+
+        setManagerById(idPersonManager, SAPersonId);
+    }
+
+
+        @Override
     public void setManagers(Integer managerId, Integer[] SVIdList) {
         for (Integer svId : SVIdList) {
-            setManager(managerId, svId);
+            setManagerById(managerId, svId);
         }
     }
 
@@ -107,4 +119,10 @@ public class ManagerServiceImpl implements ManagerService {
         Integer result2 = staff_volunteersMapper.setWorkplaceToSV(id_ws, staffId);
         if (result2 != 1) throw new UpdateException("Exception when set id_ws for SV.");
     }
+
+//    @Override
+//    public void setEventForPerson(Integer SVAId, Event event){
+//        event.setId_person(SVAId);
+//        eventMapper.
+//    }
 }

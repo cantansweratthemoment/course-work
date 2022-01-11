@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -27,11 +26,12 @@ public class Athlete implements Serializable {
 
     private Person person;
 
-    public Integer getId_person(){
-        return person.getId();
+    public Integer getId_person() {
+        if (person != null) return person.getId();
+        return null;
     }
 
-    public void setId_person(Integer id){
+    public void setId_person(Integer id) {
         this.person = new Person(id, null, null, null);
     }
 }

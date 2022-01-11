@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -19,15 +18,16 @@ public class Person implements Serializable {
 
     private Person manager;
 
-    public Integer getId_manager(){
-        return manager.getId();
+    public Integer getId_manager() {
+        if (manager != null) return manager.getId();
+        return null;
     }
 
-    public void setId_manager(Integer id){
-        manager.setId(id);
+    public void setId_manager(Integer id) {
+       if (manager != null) manager.setId(id);
     }
 
-    public void setManage(Integer id){
-        this.manager = new Person(id, null, null, null);
+    public void setManage(Integer id) {
+        manager = new Person(id, null, null, null);
     }
 }

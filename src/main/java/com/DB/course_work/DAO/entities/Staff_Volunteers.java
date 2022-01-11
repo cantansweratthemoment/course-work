@@ -18,14 +18,16 @@ public class Staff_Volunteers implements Serializable {
     private Person person;
 
     public Integer getId_person(){
-        return person.getId();
+        if (person != null) return person.getId();
+        return null;
     }
 
     public Integer getId_ws(){
-        return workplace_staff.getId();
+        if (workplace_staff != null) return workplace_staff.getId();
+        return null;
     }
 
     public void setId_person(Integer id){
-        this.person.setId(id);
+        person = new Person(id,null,null,null);
     }
 }

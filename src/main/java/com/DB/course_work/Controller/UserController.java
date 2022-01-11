@@ -64,6 +64,7 @@ public class UserController extends BasicController {
         Users data = userService.login(username, password);
         session.setAttribute("uid", data.getId());
         session.setAttribute("username", data.getLogin());
+        session.setAttribute("role", data.getRole());
 
         System.out.println(getuidFromSession(session));
         System.out.println(getUserNameFromSession(session));

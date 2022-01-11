@@ -1,10 +1,7 @@
 package com.DB.course_work.Controller;
 
 import com.DB.course_work.DAO.utils.JsonResult;
-import com.DB.course_work.Service.Exceptions.InsertException;
-import com.DB.course_work.Service.Exceptions.PasswordNotMatchException;
-import com.DB.course_work.Service.Exceptions.UserNotFoundException;
-import com.DB.course_work.Service.Exceptions.UsernameDuplicatedException;
+import com.DB.course_work.Service.Exceptions.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +29,12 @@ public class BasicController {
         }else if (e instanceof UserNotFoundException){
             result.setState(5002);
             result.setMessage("Have not registered yet.");
+        }else if (e instanceof NoPermissionException){
+            result.setState(5003);
+            result.setMessage("You have no permission to do this.");
+        }else if (e instanceof UpdateException){
+            result.setState(5004);
+            result.setMessage("Can't update.");
         }
         return result;
     }

@@ -16,10 +16,15 @@ public interface ManagerService {
     List<Person> findAllPersonHasNoManager();
 
     // SA means Staff and Athlete
-    void setManager(Integer managerId, Integer SAId);
+    void setManagerById(Integer managerId, Integer SAId);
+
+    void setManagerByUsername(String managerUsername, String SAUsername);
+
     void setManagers(Integer managerId, Integer[] SAIdList);
 
     void setEvent(Integer staffId, Event event);
 
     void setWorkplaceForStaff(Integer staffId, Integer locId, Integer BuildingId, String details);
+
+//    public void setEventForPerson(Integer SVAId, Event event);
 }
