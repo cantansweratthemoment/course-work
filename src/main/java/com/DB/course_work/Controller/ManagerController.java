@@ -1,12 +1,10 @@
 package com.DB.course_work.Controller;
 
-import com.DB.course_work.DAO.entities.Athlete;
-import com.DB.course_work.DAO.entities.Event;
-import com.DB.course_work.DAO.entities.Person;
-import com.DB.course_work.DAO.entities.Staff_Volunteers;
+import com.DB.course_work.DAO.entities.*;
 import com.DB.course_work.DAO.utils.JsonResult;
 import com.DB.course_work.Service.Exceptions.NoPermissionException;
 import com.DB.course_work.Service.ManagerService;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +20,11 @@ public class ManagerController extends BasicController {
     @Autowired
     private ManagerService managerService;
 
+    /**
+     * Login at the first and will
+     * @param session
+     * @return
+     */
     @RequestMapping("/manageList/0")
     public JsonResult<List<Athlete>> findAthleteBeManaged(HttpSession session) {
         String username = (String) session.getAttribute("username");
@@ -69,4 +72,12 @@ public class ManagerController extends BasicController {
         managerService.setEvent(SVAId, event);
         return new JsonResult<>(OK);
     }
+
+    @RequestMapping("/setLBId/{staffId}/{id_loc}/{id_building}/{details}")
+    public JsonResult<Void> setLBId(@PathVariable Integer staffId, Workplace_staff ws){
+        managerService.setWorkplaceForStaff(staffId, ws);
+        return new JsonResult<>(OK);
+    }
+
+
 }

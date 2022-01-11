@@ -24,7 +24,7 @@ public interface ManagerService {
 
     void setEvent(Integer staffId, Event event);
 
-    void setWorkplaceForStaff(Integer staffId, Integer locId, Integer BuildingId, String details);
+    void setWorkplaceForStaff(Integer staffId, Workplace_staff ws);
 
 //    public void setEventForPerson(Integer SVAId, Event event);
 }

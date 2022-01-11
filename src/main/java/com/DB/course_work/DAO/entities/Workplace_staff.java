@@ -31,4 +31,20 @@ public class Workplace_staff implements Serializable {
         }else return null;
     }
 
+    public void setId_loc(Integer id){
+        if (location != null){
+            location.setId(id);
+        } else {
+            location = new Location(id,null,null,null);
+        }
+    }
+
+    public void setId_building(Integer id){
+        if (building != null){
+            building.setId(id);
+        } else {
+            building = new Building(id,null,null,null,null,null);
+        }
+    }
+
 }

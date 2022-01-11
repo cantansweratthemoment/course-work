@@ -34,15 +34,15 @@ public class ManagerServiceTest {
         }
     }
 
-    @Test
-    public void setWS(){
-        try {
-            managerService.setWorkplaceForStaff(15, 5, 14, "Blabla!");
-        }catch (ServiceException e){
-            System.out.println(e.getClass());
-            System.out.println(e.getMessage());
-        }
-    }
+//    @Test
+//    public void setWS(){
+//        try {
+//            managerService.setWorkplaceForStaff(15, 5, 14, "Blabla!");
+//        }catch (ServiceException e){
+//            System.out.println(e.getClass());
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
 
 }

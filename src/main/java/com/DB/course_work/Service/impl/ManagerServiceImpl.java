@@ -105,10 +105,14 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void setWorkplaceForStaff(Integer staffId, Integer locId, Integer BuildingId, String details) {
+    public void setWorkplaceForStaff(Integer staffId, Workplace_staff ws) {
+        Integer buildingId = ws.getId_building();
+        Integer locId = ws.getId_loc();
+        String details = ws.getDetails();
+
         Workplace_staff workplace_staff = new Workplace_staff();
-        workplace_staff.setBuilding(new Building(BuildingId,null,null,null,null,null));
-        workplace_staff.setLocation(new Location(locId, null, null, null));
+        workplace_staff.setId_building(buildingId);
+        workplace_staff.setId_loc(locId);
         workplace_staff.setDetails(details);
         Integer result = workplace_staffMapper.insertWorkplace_staff(workplace_staff);
         if (result != 1){
