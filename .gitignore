@@ -6,3 +6,5 @@ front/node_modules/
 target/
 front/build/
 src/main/webapp/
+target/classes/application.properties
+src/main/resources/application.properties

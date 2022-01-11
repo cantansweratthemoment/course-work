@@ -5,28 +5,11 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 
 function ListOfManaged(props) {
     const handleSubmit = (event) => {
-        event.preventDefault();
-        let information = {
-            "login": props.login
-        };
-        let body = [];
-        for (const inf in information) {
-            body.push(inf + "=" + information[inf]);
-        }
-        console.log(body);
-        body = "?" + body.join("&");
-        fetch("/list_of_managed" + body, {
-            method: "POST"
-        }).then(response => response.json().then(json => {
-                if (response.ok) {
-                    console.log(json)
-                }
-            }
-        ))
+        props.setAction("list_of_managed");
     };
 
     return (<div id="list_of_managed">
-        <Box onSubmit={handleSubmit}
+        <Box
             sx={{
                 marginTop: 3,
                 display: 'flex',
@@ -38,6 +21,7 @@ function ListOfManaged(props) {
                 type="submit"
                 color="secondary"
                 size = "large"
+                onClick={handleSubmit}
                 startIcon={<RecordVoiceOverIcon/>}
                 sx={{ mt: 3, mb: 3 }}>List Of Managed</Button>
         </Box>

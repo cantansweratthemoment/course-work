@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from "react";
-import store from "../../app/store";
 import Header from "./Header";
-import ManagerActionBox from "./ManagerActionBox";
-import AthleteOrStaffActionBox from "./AthleteOrStaffActionBox";
 import Logout from "./Logout";
+import Manager from "./Manager";
+import StaffOrAthlete from "./StaffOrAthlete";
 
 function Main(props) {
     return (<div id="maindiv">
         <Logout/>
         <Header/>
-        {props.role === 2 ? <ManagerActionBox login = {props.login} role = {props.role}/> :<AthleteOrStaffActionBox login = {props.login} role = {props.role}/>}
+        {props.role === '2' ? <Manager login = {props.login} role = {props.role}/> :<StaffOrAthlete login = {props.login} role = {props.role}/>}
     </div>)
 }
 export default Main

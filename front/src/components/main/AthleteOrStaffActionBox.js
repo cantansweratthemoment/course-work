@@ -11,16 +11,16 @@ function AthleteOrStaffActionBox(props) {
         <Container maxWidth="lg" sx={{marginTop: 3}}>
             <Grid container spacing={0} >
                 <Grid item xs={6}>
-                    <AboutMyManager login = {props.login} role = {props.role}/>
+                    <AboutMyManager login = {props.login} role = {props.role} setAction={props.setAction}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <MyEvents login = {props.login} role = {props.role}/>
+                    <MyEvents login = {props.login} role = {props.role} setAction={props.setAction}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <Buildings login = {props.login} role = {props.role}/>
+                    <Buildings login = {props.login} role = {props.role} setAction={props.setAction}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <Locations login = {props.login} role = {props.role}/>
+                    <Locations login = {props.login} role = {props.role} setAction={props.setAction}/>
                 </Grid>
             </Grid>
         </Container>
