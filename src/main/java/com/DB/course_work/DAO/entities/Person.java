@@ -24,7 +24,11 @@ public class Person implements Serializable {
     }
 
     public void setId_manager(Integer id) {
-       if (manager != null) manager.setId(id);
+       if (manager != null) {
+           manager.setId(id);
+       }else {
+           setManage(id);
+       }
     }
 
     public void setManage(Integer id) {

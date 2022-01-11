@@ -73,6 +73,12 @@ public class ManagerController extends BasicController {
         return new JsonResult<>(OK);
     }
 
+    /**
+     * Example: http://localhost:8080/manager/setLBId/14/5/14/No%20details%20fxck
+     * @param staffId id of staff_volunteer.
+     * @param ws Workplace_staff object.
+     * @return Status code.
+     */
     @RequestMapping("/setLBId/{staffId}/{id_loc}/{id_building}/{details}")
     public JsonResult<Void> setLBId(@PathVariable Integer staffId, Workplace_staff ws){
         managerService.setWorkplaceForStaff(staffId, ws);
