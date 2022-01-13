@@ -16,6 +16,7 @@ export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("0");
+    const [realName, setRealName] = useState("");
     const [loginError, setLoginError] = useState(false);
     const [signUpError, setSignUpError] = useState(false);
     const handleLogIn = (event) => {
@@ -64,7 +65,7 @@ export default function Login() {
             name: "placeholder"
         });
         let information = {
-            "login": username, "password": password, "role": role, "realName" : "placeholder"
+            "login": username, "password": password, "role": role, "realName" : realName
         };
         let body = [];
         for (const inf in information) {
@@ -149,6 +150,17 @@ export default function Login() {
                         <Typography component="h4" variant="h10">
                             Don't have an account?
                         </Typography>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="realName"
+                            label="Enter your real name"
+                            id="realName"
+                            autoComplete="current-password"
+                            value={realName}
+                            onChange={(e) => setRealName(e.target.value)}
+                        />
                         <FormControl component="fieldset">
                             <FormLabel component="legend">Who are you?</FormLabel>
                             <RadioGroup row aria-label="role" name="row-radio-buttons-group" value={role}
