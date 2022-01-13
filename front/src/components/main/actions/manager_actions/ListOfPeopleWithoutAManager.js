@@ -6,27 +6,11 @@ import PeopleIcon from '@mui/icons-material/People';
 function ListOfPeopleWithoutAManager(props) {
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        let information = {
-        };
-        let body = [];
-        for (const inf in information) {
-            body.push(inf + "=" + information[inf]);
-        }
-        console.log(body);
-        body = "?" + body.join("&");
-        fetch("/list_of_people_without_a_manager" + body, {
-            method: "POST"
-        }).then(response => response.json().then(json => {
-                if (response.ok) {
-                    console.log(json)
-                }
-            }
-        ))
+        props.setAction("list_of_people_without_a_manager");
     };
 
     return (<div id="people_without_a_manager">
-        <Box onSubmit={handleSubmit}
+        <Box
             sx={{
                 marginTop: 3,
                 display: 'flex',
@@ -38,6 +22,7 @@ function ListOfPeopleWithoutAManager(props) {
                 type="submit"
                 color="secondary"
                 size = "large"
+                onClick={handleSubmit}
                 startIcon={<PeopleIcon/>}
                 sx={{ mt: 3, mb: 3 }}>People Without &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/> A Manager</Button>
         </Box>

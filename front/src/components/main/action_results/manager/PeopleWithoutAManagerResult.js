@@ -3,11 +3,11 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "
 import Paper from '@mui/material/Paper';
 import BackButton from "./BackButton";
 
-function LocationsResult(props) {
+function PeopleWithoutAManagerResult(props) {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        fetch("loc/getAllLoc", {
+        fetch("manager/list_of_people_without_a_manage", {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -61,4 +61,4 @@ function LocationsResult(props) {
     );
 }
 
-export default LocationsResult
+export default PeopleWithoutAManagerResult
