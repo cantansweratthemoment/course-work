@@ -124,9 +124,15 @@ public class ManagerServiceImpl implements ManagerService {
         if (result2 != 1) throw new UpdateException("Exception when set id_ws for SV.");
     }
 
-//    @Override
-//    public void setEventForPerson(Integer SVAId, Event event){
-//        event.setId_person(SVAId);
-//        eventMapper.
-//    }
+    @Override
+    public Person mapAthleteToPerson(Athlete athlete) {
+        Integer id_person = athlete.getId_person();
+        return personMapper.findPersonById(id_person);
+    }
+
+    @Override
+    public Person mapSVToPerson(Staff_Volunteers sv) {
+        Integer id_person = sv.getId_person();
+        return personMapper.findPersonById(id_person);
+    }
 }

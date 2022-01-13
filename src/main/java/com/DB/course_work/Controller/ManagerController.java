@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.time.Period;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -22,21 +24,37 @@ public class ManagerController extends BasicController {
 
     /**
      * Login at the first and will
-     * @param session
-     * @return
+     * @param session Will read username from session.
+     * @return A hashmap. <Person, Athlete>
      */
     @RequestMapping("/manageList/0")
-    public JsonResult<List<Athlete>> findAthleteBeManaged(HttpSession session) {
+    public JsonResult<HashMap<Person, Athlete>> findAthleteBeManaged(HttpSession session) {
+        Person person;
+        HashMap<Person, Athlete> results = new HashMap<>();
         String username = (String) session.getAttribute("username");
+
         List<Athlete> athleteList = managerService.findOwnAthletes(username);
-        return new JsonResult<>(OK, athleteList);
+        for(Athlete a : athleteList){
+            if (a == null) continue;
+            person = managerService.mapAthleteToPerson(a);
+            results.put(person, a);
+        }
+        return new JsonResult<>(OK, results);
     }
 
     @RequestMapping("/manageList/1")
-    public JsonResult<List<Staff_Volunteers>> findSVBeManaged(HttpSession session) {
+    public JsonResult<HashMap<Person, Staff_Volunteers>> findSVBeManaged(HttpSession session) {
+        Person person;
+        HashMap<Person, Staff_Volunteers> results = new HashMap<>();
         String username = (String) session.getAttribute("username");
+
         List<Staff_Volunteers> SVList = managerService.findOwnStaffVolunteers(username);
-        return new JsonResult<>(OK, SVList);
+        for (Staff_Volunteers sv : SVList){
+            if (sv == null) continue;
+            person = managerService.mapSVToPerson(sv);
+            results.put(person, sv);
+        }
+        return new JsonResult<>(OK, results);
     }
 
     @RequestMapping("/noManagerInfo")

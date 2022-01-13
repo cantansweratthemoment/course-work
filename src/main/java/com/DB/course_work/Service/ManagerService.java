@@ -26,5 +26,9 @@ public interface ManagerService {
 
     void setWorkplaceForStaff(Integer staffId, Workplace_staff ws);
 
+    Person mapAthleteToPerson(Athlete athlete);
+
+    Person mapSVToPerson(Staff_Volunteers sv);
+
 //    public void setEventForPerson(Integer SVAId, Event event);
 }
