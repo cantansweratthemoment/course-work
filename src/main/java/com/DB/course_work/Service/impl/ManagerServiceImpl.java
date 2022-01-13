@@ -39,7 +39,10 @@ public class ManagerServiceImpl implements ManagerService {
         List<Person> ListOfAthletesAsPerson = personMapper.findPersonByIdManager(managerPersonId);
         List<Athlete> result = new ArrayList<>(ListOfAthletesAsPerson.size());
         for (Person person : ListOfAthletesAsPerson) {
+            if (person == null) continue;
             Athlete athlete = athleteMapper.findAthleteByIdPerson(person.getId());
+            if (athlete == null) continue;
+            athlete.setPerson(person);
             result.add(athlete);
         }
         return result;
@@ -52,7 +55,10 @@ public class ManagerServiceImpl implements ManagerService {
         List<Person> ListOfSVAsPerson = personMapper.findPersonByIdManager(managerPersonId);
         List<Staff_Volunteers> result = new ArrayList<>(ListOfSVAsPerson.size());
         for (Person person : ListOfSVAsPerson) {
+            if (person == null) continue;
             Staff_Volunteers SV = staff_volunteersMapper.findSVByIdPerson(person.getId());
+            if (SV == null) continue;
+            SV.setPerson(person);
             result.add(SV);
         }
         return result;
@@ -89,7 +95,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
 
-        @Override
+    @Override
     public void setManagers(Integer managerId, Integer[] SVIdList) {
         for (Integer svId : SVIdList) {
             setManagerById(managerId, svId);
@@ -97,7 +103,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public void setEvent(Integer staffId, Event event) throws ServiceException{
+    public void setEvent(Integer staffId, Event event) throws ServiceException {
         Person staff = personMapper.findPersonById(staffId);
         event.setPerson(staff);
         Integer result = eventMapper.createEvent(event);
@@ -115,7 +121,7 @@ public class ManagerServiceImpl implements ManagerService {
         workplace_staff.setId_loc(locId);
         workplace_staff.setDetails(details);
         Integer result = workplace_staffMapper.insertWorkplace_staff(workplace_staff);
-        if (result != 1){
+        if (result != 1) {
             throw new InsertException("Problem about set location or building to staffs and volunteers as workplace.");
         } else System.out.println("Insert workplace_staff successfully!");
 

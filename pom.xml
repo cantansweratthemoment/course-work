@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>8</java.version>
 		<skip_maven_deploy>true</skip_maven_deploy>
+		<skipTests>true</skipTests>
 	</properties>
 	<dependencies>
 		<dependency>

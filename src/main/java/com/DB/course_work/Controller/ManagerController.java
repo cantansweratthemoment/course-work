@@ -28,33 +28,33 @@ public class ManagerController extends BasicController {
      * @return A hashmap. <Person, Athlete>
      */
     @RequestMapping("/manageList/0")
-    public JsonResult<HashMap<Person, Athlete>> findAthleteBeManaged(HttpSession session) {
+    public JsonResult<List<Athlete>> findAthleteBeManaged(HttpSession session) {
         Person person;
         HashMap<Person, Athlete> results = new HashMap<>();
         String username = (String) session.getAttribute("username");
 
         List<Athlete> athleteList = managerService.findOwnAthletes(username);
-        for(Athlete a : athleteList){
-            if (a == null) continue;
-            person = managerService.mapAthleteToPerson(a);
-            results.put(person, a);
-        }
-        return new JsonResult<>(OK, results);
+//        for(Athlete a : athleteList){
+//            if (a == null) continue;
+//            person = managerService.mapAthleteToPerson(a);
+//            results.put(person, a);
+//        }
+        return new JsonResult<>(OK, athleteList);
     }
 
     @RequestMapping("/manageList/1")
-    public JsonResult<HashMap<Person, Staff_Volunteers>> findSVBeManaged(HttpSession session) {
-        Person person;
-        HashMap<Person, Staff_Volunteers> results = new HashMap<>();
+    public JsonResult<List<Staff_Volunteers>> findSVBeManaged(HttpSession session) {
+//        Person person;
+//        HashMap<Person, Staff_Volunteers> results = new HashMap<>();
         String username = (String) session.getAttribute("username");
 
         List<Staff_Volunteers> SVList = managerService.findOwnStaffVolunteers(username);
-        for (Staff_Volunteers sv : SVList){
-            if (sv == null) continue;
-            person = managerService.mapSVToPerson(sv);
-            results.put(person, sv);
-        }
-        return new JsonResult<>(OK, results);
+//        for (Staff_Volunteers sv : SVList){
+//            if (sv == null) continue;
+//            person = managerService.mapSVToPerson(sv);
+//            results.put(person, sv);
+//        }
+        return new JsonResult<>(OK, SVList);
     }
 
     @RequestMapping("/noManagerInfo")
