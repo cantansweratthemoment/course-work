@@ -99,6 +99,7 @@ public class ManagerController extends BasicController {
      */
     @RequestMapping("/setLBId/{staffId}/{id_loc}/{id_building}/{details}")
     public JsonResult<Void> setLBId(@PathVariable Integer staffId, Workplace_staff ws){
+        if (ws.getId_building() == -1) ws.setId_building(null);
         managerService.setWorkplaceForStaff(staffId, ws);
         return new JsonResult<>(OK);
     }
