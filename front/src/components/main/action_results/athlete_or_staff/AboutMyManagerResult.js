@@ -3,11 +3,11 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "
 import Paper from '@mui/material/Paper';
 import BackButton from "../BackButton";
 
-function PeopleWithoutAManagerResult(props) {
+function AboutMyManagerResult(props) {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        fetch("manager/noManagerInfo", {
+        fetch("normal/showManager", {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -15,10 +15,8 @@ function PeopleWithoutAManagerResult(props) {
                         console.log(json);
                         let data = json.data;
                         let dataRows = [];
-                        data.forEach((one_object) => {
-                            let row = createData(one_object.id, one_object.name);
-                            dataRows.push(row);
-                        })
+                        let row = createData(data.id, data.name);
+                        dataRows.push(row);
                         console.log(dataRows);
                         setRows(dataRows);
                     }
@@ -59,4 +57,4 @@ function PeopleWithoutAManagerResult(props) {
     );
 }
 
-export default PeopleWithoutAManagerResult
+export default AboutMyManagerResult

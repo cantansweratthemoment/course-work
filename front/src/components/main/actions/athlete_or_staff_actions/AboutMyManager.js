@@ -6,28 +6,11 @@ import Box from "@mui/material/Box";
 function AboutMyManager(props) {
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        let information = {
-            "login": props.login
-        };
-        let body = [];
-        for (const inf in information) {
-            body.push(inf + "=" + information[inf]);
-        }
-        console.log(body);
-        body = "?" + body.join("&");
-        fetch("/about_my_manager" + body, {
-            method: "POST"
-        }).then(response => response.json().then(json => {
-                if (response.ok) {
-                    console.log(json)
-                }
-            }
-        ))
+        props.setAction("about_my_manager");
     };
 
     return (<div id="about_my_manager">
-        <Box onSubmit={handleSubmit}
+        <Box
             sx={{
                 marginTop: 3,
                 display: 'flex',
@@ -39,6 +22,7 @@ function AboutMyManager(props) {
                 type="submit"
                 color="secondary"
                 size = "large"
+                onClick = {handleSubmit}
                 startIcon={<InfoIcon/>}
                 sx={{ mt: 3, mb: 3 }}>About My &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/> Manager &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Button>
         </Box>

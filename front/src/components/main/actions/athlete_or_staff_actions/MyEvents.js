@@ -5,28 +5,11 @@ import Box from "@mui/material/Box";
 
 function MyEvents(props) {
     const handleSubmit = (event) => {
-        event.preventDefault();
-        let information = {
-            "login": props.login
-        };
-        let body = [];
-        for (const inf in information) {
-            body.push(inf + "=" + information[inf]);
-        }
-        console.log(body);
-        body = "?" + body.join("&");
-        fetch("/my_events" + body, {
-            method: "POST"
-        }).then(response => response.json().then(json => {
-                if (response.ok) {
-                    console.log(json)
-                }
-            }
-        ))
+        props.setAction("my_events");
     };
 
     return (<div id="my_events">
-        <Box onSubmit={handleSubmit}
+        <Box
             sx={{
                 marginTop: 3,
                 display: 'flex',
@@ -38,6 +21,7 @@ function MyEvents(props) {
                 type="submit"
                 color="secondary"
                 size = "large"
+                onClick={handleSubmit}
                 startIcon={<EventNoteIcon/>}
                 sx={{ mt: 3, mb: 3 }}>My Events &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Button>
         </Box>

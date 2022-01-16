@@ -23,7 +23,7 @@ let switchValue = 0;
 
 GreenSwitch.propTypes = {defaultChecked: PropTypes.bool};
 
-function ListOfManagedResult(props) {
+function ManageNewPersonResult(props) {
 
     const [rows0, setRows0] = useState([]);
     const [rows1, setRows1] = useState([]);
@@ -160,4 +160,4 @@ function ListOfManagedResult(props) {
     }
 }
 
-export default ListOfManagedResult
+export default ManageNewPersonResult

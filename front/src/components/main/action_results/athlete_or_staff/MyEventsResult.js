@@ -3,11 +3,11 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "
 import Paper from '@mui/material/Paper';
 import BackButton from "../BackButton";
 
-function PeopleWithoutAManagerResult(props) {
+function MyEventsResult(props) {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        fetch("manager/noManagerInfo", {
+        fetch("normal/showEvent", {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -16,9 +16,10 @@ function PeopleWithoutAManagerResult(props) {
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
-                            let row = createData(one_object.id, one_object.name);
+                            let row = createData(one_object.name, one_object.type, one_object.begin_time, one_object.end_time, one_object.location.name);
                             dataRows.push(row);
                         })
+
                         console.log(dataRows);
                         setRows(dataRows);
                     }
@@ -27,8 +28,8 @@ function PeopleWithoutAManagerResult(props) {
         ))
     }, [])
 
-    function createData(id, name) {
-        return {id, name};
+    function createData(name, type, beginTime, endTime, locationName) {
+        return {name, type, beginTime, endTime, locationName};
     }
 
     return (
@@ -37,8 +38,11 @@ function PeopleWithoutAManagerResult(props) {
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell align="right">Name&nbsp;</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell align="right">Type&nbsp;</TableCell>
+                        <TableCell align="right">Begin time&nbsp;</TableCell>
+                        <TableCell align="right">End time&nbsp;</TableCell>
+                        <TableCell align="right">Location&nbsp;</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -48,9 +52,12 @@ function PeopleWithoutAManagerResult(props) {
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
                             <TableCell component="th" scope="row">
-                                {row.id}
+                                {row.name}
                             </TableCell>
-                            <TableCell align="right">{row.name}</TableCell>
+                            <TableCell align="right">{row.type}</TableCell>
+                            <TableCell align="right">{row.beginTime}</TableCell>
+                            <TableCell align="right">{row.endTime}</TableCell>
+                            <TableCell align="right">{row.locationName}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -59,4 +66,4 @@ function PeopleWithoutAManagerResult(props) {
     );
 }
 
-export default PeopleWithoutAManagerResult
+export default MyEventsResult
