@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-function ManageNewPerson() {
+function ManageNewPerson(props) {
 
     const handleSubmit = (event) => {
         props.setAction("manage_new_person");

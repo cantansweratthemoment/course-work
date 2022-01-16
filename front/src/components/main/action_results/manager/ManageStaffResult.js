@@ -15,19 +15,25 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-function ManageNewPersonResult(props) {
-    const [notManagedPeopleRows, setNotManagedPeopleRows] = useState([]);
-    const [login, setLogin] = useState("");
+function ManageStaffResult(props) {
+    const [managedStaff, setManagedStaff] = useState([]);
+    const [staffId, setStaffId] = useState("");
     const [success, setSuccess] = useState(false);
+    const [locations, setLocations] = useState([]);
+    const [locId, setLocId] = useState([]);
 
     const handleIdChange = (event) => {
-        setLogin(event.target.value);
+        setStaffId(event.target.value);
+    };
+
+    const handleLocChange = (event) => {
+        setLocId(event.target.value);
     };
 
     const handle = (event) => {
         event.preventDefault();
         setSuccess(false);
-        fetch("manager/managePerson/"+login, {
+        fetch("setLBId/"+staffId+"/"+locId+"//test", {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -40,7 +46,7 @@ function ManageNewPersonResult(props) {
     }
 
     useEffect(() => {
-        fetch("manager/noManagerInfo", {
+        fetch("manager/manageList/1", {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -49,19 +55,41 @@ function ManageNewPersonResult(props) {
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
-                            let row = createData(one_object.login, one_object.name);
+                            let row = createStaffData(one_object.id, one_object.person.name);
                             dataRows.push(row);
                         })
                         console.log(dataRows);
-                        setNotManagedPeopleRows(dataRows);
+                        setManagedStaff(dataRows);
+                    }
+                }
+            }
+        ))
+        fetch("loc/getAllLoc", {
+            method: "POST"
+        }).then(response => response.json().then(json => {
+                if (response.ok) {
+                    if (json.state === 200) {
+                        console.log(json);
+                        let data = json.data;
+                        let dataRows = [];
+                        data.forEach((one_object) => {
+                            let row = createLocationsData(one_object.id, one_object.name);
+                            dataRows.push(row);
+                        })
+                        console.log(dataRows);
+                        setLocations(dataRows);
                     }
                 }
             }
         ))
     }, [])
 
-    function createData(login, name) {
-        return {login, name};
+    function createStaffData(id, name) {
+        return {id, name};
+    }
+
+    function createLocationsData(id, name) {
+        return {id, name};
     }
 
     return (
@@ -79,15 +107,25 @@ function ManageNewPersonResult(props) {
 
             <Box component="form" noValidate sx={{mt: 1}}>
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Not Managed People</InputLabel>
+                    <InputLabel id="demo-simple-select-label">My Staff</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label="Location"
                         onChange={handleIdChange}
                     >
-                        {notManagedPeopleRows.map((row) => (
-                            <MenuItem value={row.login}>{row.name}</MenuItem>
+                        {managedStaff.map((row) => (
+                            <MenuItem value={row.id}>{row.name}</MenuItem>
+                        ))}
+                    </Select>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Location"
+                        onChange={handleLocChange}
+                    >
+                        {locations.map((row) => (
+                            <MenuItem value={row.id}>{row.name}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -106,4 +144,4 @@ function ManageNewPersonResult(props) {
     );
 }
 
-export default ManageNewPersonResult
+export default ManageStaffResult

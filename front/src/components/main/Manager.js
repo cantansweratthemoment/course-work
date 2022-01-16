@@ -6,6 +6,7 @@ import ListOfManagedResult from "./action_results/manager/ListOfManagedResult";
 import PeopleWithoutAManagerResult from "./action_results/manager/PeopleWithoutAManagerResult";
 import BuildingsResult from "./action_results/BuildingsResult";
 import ManageNewPersonResult from "./action_results/manager/ManageNewPersonResult";
+import ManageStaffResult from "./action_results/manager/ManageStaffResult";
 
 function Manager(props) {
     const [action, setAction] = useState("none");
@@ -22,6 +23,8 @@ function Manager(props) {
             return (<Container><BuildingsResult login={props.login} role={props.role} setAction={setAction}/></Container>)
         case 'manage_new_person':
             return (<Container><ManageNewPersonResult login={props.login} role={props.role} setAction={setAction}/></Container>)
+        case 'manage_staff':
+            return (<Container><ManageStaffResult login={props.login} role={props.role} setAction={setAction}/></Container>)
         default:
             return;
     }

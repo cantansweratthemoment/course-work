@@ -90,9 +90,9 @@ function ListOfManagedResult(props) {
             <TableContainer component={Paper} sx={{marginTop: 4}}>
                 <BackButton setAction={props.setAction}/>
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <Typography>Athletes</Typography>
-                    <Switch onChange={handleSwitchChange} defaultChecked/>
                     <Typography>Staff</Typography>
+                    <Switch onChange={handleSwitchChange} defaultChecked/>
+                    <Typography>Athletes</Typography>
                 </Stack>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
