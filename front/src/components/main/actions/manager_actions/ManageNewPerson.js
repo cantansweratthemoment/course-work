@@ -3,15 +3,14 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-function ManageNewPerson() {
+function ManageNewPerson(props) {
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-
+        props.setAction("manage_new_person");
     };
 
     return (<div id="manage_new_person">
-        <Box onSubmit={handleSubmit}
+        <Box
             sx={{
                 marginTop: 3,
                 display: 'flex',
@@ -22,6 +21,7 @@ function ManageNewPerson() {
         <Button variant="outlined"
                 type="submit"
                 color="secondary"
+                onClick={handleSubmit}
                 size = "large"
                 startIcon={<PersonAddIcon/>}
                 sx={{ mt: 3, mb: 3 }}>Manage New Person</Button>

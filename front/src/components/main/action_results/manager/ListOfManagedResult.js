@@ -38,7 +38,11 @@ function ListOfManagedResult(props) {
         setMeow([]);
     }
 
-    function createData(id, name) {
+    function createData0(id, name, height, weight, sport, record) {
+        return {id, name, height, weight, sport, record};
+    }
+
+    function createData1(id, name) {
         return {id, name};
     }
 
@@ -48,18 +52,15 @@ function ListOfManagedResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
-                        let ddata = json.data;
+                        let data = json.data;
                         let dataRows = [];
-                        let data = ddata.filter(function (e) {
-                            return e != null;
-                        });
                         console.log(data);
                         data.forEach((one_object) => {
-                            let row = createData(one_object.id, one_object.person.name);
+                            let row = createData0(one_object.person.id, one_object.person.name, one_object.height, one_object.weight, one_object.sport, one_object.record);
                             dataRows.push(row);
                         })
                         setRows0(dataRows);
+                        console.log(rows0);
                     }
                 }
             }
@@ -69,18 +70,15 @@ function ListOfManagedResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
-                        let ddata = json.data;
+                        let data = json.data;
                         let dataRows = [];
-                        let data = ddata.filter(function (e) {
-                            return e != null;
-                        });
                         console.log(data);
                         data.forEach((one_object) => {
-                            let row = createData(one_object.id, one_object.person.name);
+                            let row = createData1(one_object.person.id, one_object.person.name);
                             dataRows.push(row);
                         })
                         setRows1(dataRows);
+                        console.log(rows1);
                     }
                 }
             }
@@ -92,9 +90,9 @@ function ListOfManagedResult(props) {
             <TableContainer component={Paper} sx={{marginTop: 4}}>
                 <BackButton setAction={props.setAction}/>
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <Typography>Athletes</Typography>
-                    <Switch onChange={handleSwitchChange} defaultChecked/>
                     <Typography>Staff</Typography>
+                    <Switch onChange={handleSwitchChange} defaultChecked/>
+                    <Typography>Athletes</Typography>
                 </Stack>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
@@ -133,6 +131,10 @@ function ListOfManagedResult(props) {
                         <TableRow>
                             <TableCell>ID</TableCell>
                             <TableCell align="right">Name&nbsp;</TableCell>
+                            <TableCell align="right">Height&nbsp;</TableCell>
+                            <TableCell align="right">Weight&nbsp;</TableCell>
+                            <TableCell align="right">Sport&nbsp;</TableCell>
+                            <TableCell align="right">Record&nbsp;</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -145,6 +147,10 @@ function ListOfManagedResult(props) {
                                     {row.id}
                                 </TableCell>
                                 <TableCell align="right">{row.name}</TableCell>
+                                <TableCell align="right">{row.height}</TableCell>
+                                <TableCell align="right">{row.weight}</TableCell>
+                                <TableCell align="right">{row.sport}</TableCell>
+                                <TableCell align="right">{row.record}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
