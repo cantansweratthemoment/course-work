@@ -12,4 +12,5 @@ public interface StaffService {
     List<Event> findOwnEvents(Integer StaffId);
     List<Location> findAllLocations();
     List<Building> findBuildingsByLocId(Integer LocationId);
+    List<Event> findOwnEventsByUID(Integer UID);
 }

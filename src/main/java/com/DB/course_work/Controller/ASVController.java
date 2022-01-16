@@ -30,7 +30,7 @@ public class ASVController extends BasicController{
     @RequestMapping("/showEvent")
     JsonResult<List<Event>> showEvent(HttpSession session){
         Integer uid = (Integer) session.getAttribute("uid");
-        List <Event> result = staffService.findOwnEvents(uid);
+        List <Event> result = staffService.findOwnEventsByUID(uid);
         return new JsonResult<>(OK, result);
     }
 }
