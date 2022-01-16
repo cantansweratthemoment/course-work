@@ -75,8 +75,18 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<Person> findAllPersonHasNoManager() {
-        return personMapper.findAllASNoManager();
+    public List<Users> findAllPersonHasNoManager() {
+        List<Person> personResult = personMapper.findAllASNoManager();
+        List<Users> result = new ArrayList<>();
+        for(Person person : personResult){
+            if (person == null) continue;
+            if (person.getId() == null) continue;
+            Users user = usersMapper.findUserByIdPerson(person.getId());
+            if (user == null) continue;
+            user.setPerson(person);
+            result.add(user);
+        }
+        return result;
     }
 
     @Override

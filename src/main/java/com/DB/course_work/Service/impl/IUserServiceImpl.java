@@ -59,6 +59,7 @@ public class IUserServiceImpl implements IUserService {
     public void regAsPerson(Users user, String personName) {
         Person person = new Person(null, personName, null, null);
         personMapper.createPerson(person);
+        user.setPerson(person);
         Integer id = person.getId();
         usersMapper.updatePersonId(user.getLogin(), id);
     }

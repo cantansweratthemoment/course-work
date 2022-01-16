@@ -16,7 +16,7 @@ public interface EventMapper {
     @Select("select * from event")
     List<Event> getAllEvents();
 
-    @Select("select * from event where id_person = id_person")
+    @Select("select * from event where id_person = #{id_person}")
     List<Event> findEventsByPersonId(Integer id_person);
 
     @Insert("insert into event(name, type, begin_time, end_time, id_person, id_loc) " +

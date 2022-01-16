@@ -1,5 +1,6 @@
 package com.DB.course_work.DAO.mapper;
 
+import com.DB.course_work.DAO.entities.Person;
 import com.DB.course_work.DAO.entities.Users;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -31,4 +32,7 @@ public interface UsersMapper {
 
     @Select("select salt from users where login = #{login}")
     String findSaltByLogin(String login);
+
+    @Select("select * from users where id_person = #{id_person}")
+    Users findUserByIdPerson(Integer id_person);
 }

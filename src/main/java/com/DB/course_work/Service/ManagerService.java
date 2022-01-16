@@ -13,7 +13,7 @@ public interface ManagerService {
 
     List<Building> findBuildingsByLocationId(Integer locationId);
 
-    List<Person> findAllPersonHasNoManager();
+    List<Users> findAllPersonHasNoManager();
 
     // SA means Staff and Athlete
     void setManagerById(Integer managerId, Integer SAId);

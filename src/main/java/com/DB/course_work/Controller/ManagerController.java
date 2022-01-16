@@ -58,7 +58,7 @@ public class ManagerController extends BasicController {
     }
 
     @RequestMapping("/noManagerInfo")
-    public JsonResult<List<Person>> findPersonNoManager() {
+    public JsonResult<List<Users>> findPersonNoManager() {
         return new JsonResult<>(OK, managerService.findAllPersonHasNoManager());
     }
 

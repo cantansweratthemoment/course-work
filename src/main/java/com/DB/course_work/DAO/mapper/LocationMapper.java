@@ -17,4 +17,7 @@ public interface LocationMapper{
 
     @Select("select * from building where id_loc = #{idLoc}")
     List<Building> findBuildingsByLocId(Integer idLoc);
+
+    @Select("select * from location where id = #{id}")
+    Location findLocationById(Integer id);
 }

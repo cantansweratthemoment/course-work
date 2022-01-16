@@ -32,7 +32,15 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<Event> findOwnEvents(Integer personId) {
-        return eventMapper.findEventsByPersonId(personId);
+        List<Event> result = eventMapper.findEventsByPersonId(personId);
+        for(Event e : result){
+            if (e == null) continue;
+            if (e.getLocation() == null) continue;
+            Integer id_loc = e.getId_loc();
+            Location loc = locationMapper.findLocationById(id_loc);
+            e.setLocation(loc);
+        }
+        return result;
     }
 
     public List<Event> findOwnEventsByUID(Integer uid){
