@@ -16,7 +16,11 @@ function PeopleWithoutAManagerResult(props) {
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
-                            let row = createData(one_object.id, one_object.name);
+                            let type = "Staff";
+                            if (one_object.role === 0) {
+                                type = "Athlete";
+                            }
+                            let row = createData(one_object.person.id, one_object.person.name, type);
                             dataRows.push(row);
                         })
                         console.log(dataRows);
@@ -27,8 +31,8 @@ function PeopleWithoutAManagerResult(props) {
         ))
     }, [])
 
-    function createData(id, name) {
-        return {id, name};
+    function createData(id, name, type) {
+        return {id, name, type};
     }
 
     return (
@@ -39,6 +43,7 @@ function PeopleWithoutAManagerResult(props) {
                     <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell align="right">Name&nbsp;</TableCell>
+                        <TableCell align="right">Type&nbsp;</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -51,6 +56,7 @@ function PeopleWithoutAManagerResult(props) {
                                 {row.id}
                             </TableCell>
                             <TableCell align="right">{row.name}</TableCell>
+                            <TableCell align="right">{row.type}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

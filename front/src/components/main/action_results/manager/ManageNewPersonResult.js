@@ -14,6 +14,7 @@ import {
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import BackButton from "../BackButton";
 
 function ManageNewPersonResult(props) {
     const [notManagedPeopleRows, setNotManagedPeopleRows] = useState([]);
@@ -49,7 +50,7 @@ function ManageNewPersonResult(props) {
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
-                            let row = createData(one_object.login, one_object.name);
+                            let row = createData(one_object.login, one_object.person.name);
                             dataRows.push(row);
                         })
                         console.log(dataRows);
@@ -73,6 +74,7 @@ function ManageNewPersonResult(props) {
                 alignItems: 'center',
             }}
         >
+            <BackButton setAction={props.setAction}/>
             <Typography component="h4" variant="h10">
                 Who do you want to manage?
             </Typography>

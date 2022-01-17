@@ -14,6 +14,8 @@ import {
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import BackButton from "../BackButton";
+import TextField from "@mui/material/TextField";
 
 function ManageStaffResult(props) {
     const [managedStaff, setManagedStaff] = useState([]);
@@ -21,19 +23,44 @@ function ManageStaffResult(props) {
     const [success, setSuccess] = useState(false);
     const [locations, setLocations] = useState([]);
     const [locId, setLocId] = useState([]);
+    const [buildings, setBuildings] = useState([]);
+    const [buildingId, setBuildingId] = useState(-1);
+    const [extraInfo, setInfo] = useState("");
 
     const handleIdChange = (event) => {
         setStaffId(event.target.value);
     };
 
+    const handleBuildingChange = (event) => {
+        setBuildingId(event.target.value);
+    };
+
     const handleLocChange = (event) => {
         setLocId(event.target.value);
+        fetch("loc/" + event.target.value + "/buildings", {
+            method: "POST"
+        }).then(response => response.json().then(json => {
+                if (response.ok) {
+                    if (json.state === 200) {
+                        console.log(json);
+                        let data = json.data;
+                        let dataRows = [];
+                        data.forEach((one_object) => {
+                            let row = createLocationsData(one_object.id, one_object.name);
+                            dataRows.push(row);
+                        })
+                        console.log(dataRows);
+                        setBuildings(dataRows);
+                    }
+                }
+            }
+        ))
     };
 
     const handle = (event) => {
         event.preventDefault();
         setSuccess(false);
-        fetch("setLBId/"+staffId+"/"+locId+"//test", {
+        fetch("manager/setLBId/" + staffId + "/" + locId + "/" + buildingId + "/" + extraInfo, {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -101,6 +128,7 @@ function ManageStaffResult(props) {
                 alignItems: 'center',
             }}
         >
+            <BackButton setAction={props.setAction}/>
             <Typography component="h4" variant="h10">
                 Who do you want to manage?
             </Typography>
@@ -128,6 +156,31 @@ function ManageStaffResult(props) {
                             <MenuItem value={row.id}>{row.name}</MenuItem>
                         ))}
                     </Select>
+                    <Typography component="h4" variant="h10">
+                        You can specify building if you want.
+                    </Typography>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Building"
+                        onChange={handleBuildingChange}
+                    >
+                        {buildings.map((row) => (
+                            <MenuItem value={row.id}>{row.name}</MenuItem>
+                        ))}
+                    </Select>
+                    <Typography component="h4" variant="h10">
+                        Any extra information?
+                    </Typography>
+                    <TextField
+                        margin="normal"
+                        fullWidth
+                        name="info"
+                        label="Extra info"
+                        id="realName"
+                        value={extraInfo}
+                        onChange={(e) => setInfo(e.target.value)}
+                    />
                 </FormControl>
                 <Button
                     color="primary"

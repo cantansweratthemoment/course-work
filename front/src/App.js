@@ -6,7 +6,6 @@ import '@fontsource/roboto/700.css';
 
 import Main from "./components/main/Main";
 import Login from "./components/login/Login";
-import ManagerActionBox from "./components/main/ManagerActionBox";
 
 class App extends Component {
   componentDidMount() {
