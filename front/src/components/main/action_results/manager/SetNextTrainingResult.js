@@ -7,11 +7,11 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TimeField from 'react-simple-timefield';
 
-function SetEventResult(props) {
+function SetNextTrainingResult(props) {
 
     const [id, setId] = useState(0);
     const [name, setName] = useState("");
-    const [type, setType] = useState("");
+    const type = "training";
     const [beginTime, setBeginTime] = useState('00:00:00');
     const [endTime, setEndTime] = useState('00:00:00');
     const [idLoc, setIdLoc] = useState(0);
@@ -22,8 +22,8 @@ function SetEventResult(props) {
     const handle = (event) => {
         event.preventDefault();
         setSuccess(false);
-        console.log("manager/event/" + id + "/" + name + "/" + type + "/" + beginTime + "/" + endTime + "/" + idLoc);
-        fetch("manager/event/" + id + "/" + name + "/" + type + "/" + beginTime + ":00/" + endTime + ":00/" + idLoc, {
+        console.log("manager/event/"+id+"/"+name+"/"+type+"/"+beginTime+"/"+endTime+"/"+idLoc);
+        fetch("manager/event/"+id+"/"+name+"/"+type+"/"+beginTime+":00/"+endTime+":00/"+idLoc, {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -31,7 +31,7 @@ function SetEventResult(props) {
                         setSuccess(true);
                     }
                 }
-                console.log(json);
+            console.log(json);
             }
         ))
     };
@@ -88,7 +88,7 @@ function SetEventResult(props) {
         >
             <BackButton setAction={props.setAction}/>
             <Typography component="h4" variant="h10">
-                Let's create new event!
+                Let's add new training for your athlete!
             </Typography>
 
             <Box component="form" noValidate sx={{mt: 1}}>
@@ -111,29 +111,17 @@ function SetEventResult(props) {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
-                </FormControl>
-                <FormControl fullWidth>
-                    <InputLabel>Type</InputLabel>
-                    <Select
-                        label="Type"
-                        onChange={(e) => setType(e.target.value)}
-                    >
-                        <MenuItem value="training">Training</MenuItem>
-                        <MenuItem value="free_time">Free time</MenuItem>
-                        <MenuItem value="eating">Eating</MenuItem>
-                        <MenuItem value="relaxing">Relaxing</MenuItem>
-                    </Select>
                     <TimeField
                         value={beginTime}
                         onChange={(e, v) => setBeginTime(v)}
-                    />
+                     />
                     <TimeField
                         value={endTime}
                         onChange={(e, v) => setEndTime(v)}
                     />
                 </FormControl>
                 <FormControl fullWidth>
-                    <InputLabel>Location</InputLabel>
+                    <InputLabel>Locations</InputLabel>
                     <Select
                         label="Location"
                         onChange={(e) => setIdLoc(e.target.value)}
@@ -158,4 +146,4 @@ function SetEventResult(props) {
     )
 }
 
-export default SetEventResult
+export default SetNextTrainingResult
