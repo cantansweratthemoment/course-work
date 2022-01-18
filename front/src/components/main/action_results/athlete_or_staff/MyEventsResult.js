@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import BackButton from "../BackButton";
 import Typography from "@mui/material/Typography";
 import {QRCode} from "react-qr-svg";
+import Container from "@mui/material/Container";
 
 function MyEventsResult(props) {
     const [rows, setRows] = useState([]);
@@ -46,16 +47,18 @@ function MyEventsResult(props) {
     return (
         <TableContainer component={Paper} sx={{marginTop: 4}}>
             <BackButton setAction={props.setAction}/>
-            <Typography component="h4" variant="h10">
-                Don't lose important information!
-                Scan this and add to your notes :)
-            </Typography>
-            <QRCode bgColor="#FFFFFF"
-                    fgColor="#C660CE"
-                    level="Q"
-                    style={{width: 100}}
-                    value={stringRows}
-            />
+            <Container>
+                <Typography component="h4" variant="h10">
+                    Don't lose important information!
+                    Scan this and add to your notes :)
+                </Typography>
+                <QRCode bgColor="#FFFFFF"
+                        fgColor="#C660CE"
+                        level="Q"
+                        style={{width: 100}}
+                        value={stringRows}
+                />
+            </Container>
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
