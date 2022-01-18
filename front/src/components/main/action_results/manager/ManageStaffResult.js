@@ -42,14 +42,12 @@ function ManageStaffResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
                             let row = createLocationsData(one_object.id, one_object.name);
                             dataRows.push(row);
                         })
-                        console.log(dataRows);
                         setBuildings(dataRows);
                     }
                 }
@@ -78,14 +76,12 @@ function ManageStaffResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
                             let row = createStaffData(one_object.id, one_object.person.name);
                             dataRows.push(row);
                         })
-                        console.log(dataRows);
                         setManagedStaff(dataRows);
                     }
                 }
@@ -96,14 +92,12 @@ function ManageStaffResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
                             let row = createLocationsData(one_object.id, one_object.name);
                             dataRows.push(row);
                         })
-                        console.log(dataRows);
                         setLocations(dataRows);
                     }
                 }
@@ -146,6 +140,10 @@ function ManageStaffResult(props) {
                             <MenuItem value={row.id}>{row.name}</MenuItem>
                         ))}
                     </Select>
+                </FormControl>
+                <br/>
+                <FormControl fullWidth>
+                    <InputLabel>Location</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -156,9 +154,12 @@ function ManageStaffResult(props) {
                             <MenuItem value={row.id}>{row.name}</MenuItem>
                         ))}
                     </Select>
-                    <Typography component="h4" variant="h10">
-                        You can specify building if you want.
-                    </Typography>
+                </FormControl>
+                <Typography component="h4" variant="h10">
+                    <br/>You can specify building if you want.
+                </Typography>
+                <FormControl fullWidth>
+                    <InputLabel>Building</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -194,7 +195,7 @@ function ManageStaffResult(props) {
                 {success ? <Alert severity="success">Success!</Alert> : ''}
             </Box>
         </Box>
-    );
+    )
 }
 
 export default ManageStaffResult

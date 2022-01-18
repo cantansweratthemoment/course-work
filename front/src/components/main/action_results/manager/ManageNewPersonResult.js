@@ -28,7 +28,7 @@ function ManageNewPersonResult(props) {
     const handle = (event) => {
         event.preventDefault();
         setSuccess(false);
-        fetch("manager/managePerson/"+login, {
+        fetch("manager/managePerson/" + login, {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -46,14 +46,12 @@ function ManageNewPersonResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
                             let row = createData(one_object.login, one_object.person.name);
                             dataRows.push(row);
                         })
-                        console.log(dataRows);
                         setNotManagedPeopleRows(dataRows);
                     }
                 }
@@ -85,7 +83,7 @@ function ManageNewPersonResult(props) {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        label="Location"
+                        label="Not Managed People"
                         onChange={handleIdChange}
                     >
                         {notManagedPeopleRows.map((row) => (

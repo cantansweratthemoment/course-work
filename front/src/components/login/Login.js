@@ -10,8 +10,6 @@ import {useState} from "react";
 import store from "../../app/store";
 import {Alert, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 
-const theme = createTheme();
-
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -22,11 +20,6 @@ export default function Login() {
     const handleLogIn = (event) => {
         setLoginError(false);
         event.preventDefault();
-        console.log({
-            email: username,
-            password: password,
-            role: role
-        });
         let information = {
             "username": username, "password": password
         };
@@ -34,14 +27,11 @@ export default function Login() {
         for (const inf in information) {
             body.push("/" + information[inf]);
         }
-        console.log(body);
         body = body.join("");
-        console.log(body);
         fetch("users/login" + body, {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
-                    console.log(json)
                     if (json.state === 200) {
                         store.dispatch({type: "change_login", value: json.data.username});
                         store.dispatch({type: "change_role", value: json.data.role});
@@ -58,12 +48,6 @@ export default function Login() {
     const handleSignUp = (event) => {
         setSignUpError(false);
         event.preventDefault();
-        console.log({
-            email: username,
-            password: password,
-            role: role,
-            name: "placeholder"
-        });
         let information = {
             "login": username, "password": password, "role": role, "realName" : realName
         };
@@ -71,9 +55,7 @@ export default function Login() {
         for (const inf in information) {
             body.push("/" + information[inf]);
         }
-        console.log(body);
         body = body.join("");
-        console.log(body);
         fetch("users/reg" + body, {
             method: "POST"
         }).then(response => response.json().then(json => {
@@ -94,7 +76,6 @@ export default function Login() {
     };
 
     return (
-        <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
                 <Box
@@ -123,7 +104,7 @@ export default function Login() {
                             autoComplete="username"
                             autoFocus
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => setUsername((e.target.value).trim())}
                         />
                         <TextField
                             margin="normal"
@@ -135,7 +116,7 @@ export default function Login() {
                             id="password"
                             autoComplete="current-password"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => setPassword((e.target.value).trim())}
                         />
                         <Button
                             color="primary"
@@ -152,14 +133,13 @@ export default function Login() {
                         </Typography>
                         <TextField
                             margin="normal"
-                            required
                             fullWidth
                             name="realName"
                             label="Enter your real name"
                             id="realName"
                             autoComplete="current-password"
                             value={realName}
-                            onChange={(e) => setRealName(e.target.value)}
+                            onChange={(e) => setRealName((e.target.value).trim())}
                         />
                         <FormControl component="fieldset">
                             <FormLabel component="legend">Who are you?</FormLabel>
@@ -183,6 +163,5 @@ export default function Login() {
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
     );
 }

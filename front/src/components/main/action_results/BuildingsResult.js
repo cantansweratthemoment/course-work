@@ -23,14 +23,12 @@ function BuildingsResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
                             let row = createData(one_object.id, one_object.name, one_object.working_time, one_object.end_time);
                             dataRows.push(row);
                         })
-                        console.log(dataRows);
                         setRows(dataRows);
                     }
                 }
@@ -44,14 +42,12 @@ function BuildingsResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
                             let row = createLocationData(one_object.id, one_object.name);
                             dataRows.push(row);
                         })
-                        console.log(dataRows);
                         setLocationRows(dataRows);
                     }
                 }
@@ -75,7 +71,7 @@ function BuildingsResult(props) {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    label="Location"
+                    label="Choose location"
                     onChange={handleIdChange}
                 >
                     {locationRows.map((row) => (

@@ -54,13 +54,11 @@ function ListOfManagedResult(props) {
                     if (json.state === 200) {
                         let data = json.data;
                         let dataRows = [];
-                        console.log(data);
                         data.forEach((one_object) => {
                             let row = createData0(one_object.person.id, one_object.person.name, one_object.height, one_object.weight, one_object.sport, one_object.record);
                             dataRows.push(row);
                         })
                         setRows0(dataRows);
-                        console.log(rows0);
                     }
                 }
             }
@@ -72,13 +70,11 @@ function ListOfManagedResult(props) {
                     if (json.state === 200) {
                         let data = json.data;
                         let dataRows = [];
-                        console.log(data);
                         data.forEach((one_object) => {
                             let row = createData1(one_object.person.id, one_object.person.name);
                             dataRows.push(row);
                         })
                         setRows1(dataRows);
-                        console.log(rows1);
                     }
                 }
             }
@@ -90,7 +86,7 @@ function ListOfManagedResult(props) {
             <TableContainer component={Paper} sx={{marginTop: 4}}>
                 <BackButton setAction={props.setAction}/>
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <Typography>Staff</Typography>
+                    <Typography>&nbsp;&nbsp;&nbsp;Staff</Typography>
                     <Switch onChange={handleSwitchChange} defaultChecked/>
                     <Typography>Athletes</Typography>
                 </Stack>
@@ -122,9 +118,9 @@ function ListOfManagedResult(props) {
             <TableContainer component={Paper} sx={{marginTop: 4}}>
                 <BackButton setAction={props.setAction}/>
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <Typography>Athletes</Typography>
+                    <Typography>&nbsp;&nbsp;&nbsp;Staff</Typography>
                     <Switch onChange={handleSwitchChange} defaultChecked/>
-                    <Typography>Staff</Typography>
+                    <Typography>Athletes</Typography>
                 </Stack>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>

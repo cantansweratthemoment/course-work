@@ -22,8 +22,7 @@ function SetNextTrainingResult(props) {
     const handle = (event) => {
         event.preventDefault();
         setSuccess(false);
-        console.log("manager/event/"+id+"/"+name+"/"+type+"/"+beginTime+"/"+endTime+"/"+idLoc);
-        fetch("manager/event/"+id+"/"+name+"/"+type+"/"+beginTime+":00/"+endTime+":00/"+idLoc, {
+        fetch("manager/event/" + id + "/" + name + "/" + type + "/" + beginTime + ":00/" + endTime + ":00/" + idLoc, {
             method: "POST"
         }).then(response => response.json().then(json => {
                 if (response.ok) {
@@ -31,7 +30,6 @@ function SetNextTrainingResult(props) {
                         setSuccess(true);
                     }
                 }
-            console.log(json);
             }
         ))
     };
@@ -48,7 +46,6 @@ function SetNextTrainingResult(props) {
                     if (json.state === 200) {
                         let data = json.data;
                         let dataRows = [];
-                        console.log(data);
                         data.forEach((one_object) => {
                             let row = createData(one_object.person.id, one_object.person.name);
                             dataRows.push(row);
@@ -65,7 +62,6 @@ function SetNextTrainingResult(props) {
                     if (json.state === 200) {
                         let data = json.data;
                         let dataRows = [];
-                        console.log(data);
                         data.forEach((one_object) => {
                             let row = createData(one_object.id, one_object.name);
                             dataRows.push(row);
@@ -114,11 +110,15 @@ function SetNextTrainingResult(props) {
                     <TimeField
                         value={beginTime}
                         onChange={(e, v) => setBeginTime(v)}
-                     />
+                        input={<TextField/>}
+                    />
+                    <br/>
                     <TimeField
                         value={endTime}
                         onChange={(e, v) => setEndTime(v)}
+                        input={<TextField/>}
                     />
+                    <br/>
                 </FormControl>
                 <FormControl fullWidth>
                     <InputLabel>Locations</InputLabel>
@@ -131,6 +131,7 @@ function SetNextTrainingResult(props) {
                         ))}
                     </Select>
                 </FormControl>
+                <br/>
                 <Button
                     color="primary"
                     variant="outlined"

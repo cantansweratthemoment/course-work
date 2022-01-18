@@ -2,9 +2,22 @@ import React, {useEffect, useState} from "react";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import Paper from '@mui/material/Paper';
 import BackButton from "../BackButton";
+import Typography from "@mui/material/Typography";
+import {QRCode} from "react-qr-svg";
 
 function MyEventsResult(props) {
     const [rows, setRows] = useState([]);
+    const [stringRows, setStringRows] = useState("");
+
+    function createStringRows(rows) {
+        let stringRow = "My events\n\n";
+        rows.forEach((row) => {
+            let newRow = "Name: " + row.name + ", type: " + row.type + ", begin time: " + row.beginTime + ", end time: "
+                + row.endTime + ", location" + row.locationName + ".\n";
+            stringRow = stringRow + newRow;
+        })
+        return stringRow;
+    }
 
     useEffect(() => {
         fetch("normal/showEvent", {
@@ -12,16 +25,14 @@ function MyEventsResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
                             let row = createData(one_object.name, one_object.type, one_object.begin_time, one_object.end_time, one_object.location.name);
                             dataRows.push(row);
                         })
-
-                        console.log(dataRows);
                         setRows(dataRows);
+                        setStringRows(createStringRows(rows));
                     }
                 }
             }
@@ -35,6 +46,16 @@ function MyEventsResult(props) {
     return (
         <TableContainer component={Paper} sx={{marginTop: 4}}>
             <BackButton setAction={props.setAction}/>
+            <Typography component="h4" variant="h10">
+                Don't lose important information!
+                Scan this and add to your notes :)
+            </Typography>
+            <QRCode bgColor="#FFFFFF"
+                    fgColor="#C660CE"
+                    level="Q"
+                    style={{width: 100}}
+                    value={stringRows}
+            />
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>

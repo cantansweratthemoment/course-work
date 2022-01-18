@@ -12,7 +12,6 @@ function PeopleWithoutAManagerResult(props) {
         }).then(response => response.json().then(json => {
                 if (response.ok) {
                     if (json.state === 200) {
-                        console.log(json);
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
@@ -23,7 +22,6 @@ function PeopleWithoutAManagerResult(props) {
                             let row = createData(one_object.person.id, one_object.person.name, type);
                             dataRows.push(row);
                         })
-                        console.log(dataRows);
                         setRows(dataRows);
                     }
                 }

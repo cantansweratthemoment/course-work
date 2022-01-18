@@ -6,7 +6,6 @@ import {IconButton} from "@mui/material";
 function Logout() {
     const logout = e => {
         store.dispatch({type: "change_login", value: null});
-        console.log(store.getState());
     }
     return ( <IconButton aria-label="logout" color="secondary" size="large" onClick={logout} ><LogoutIcon/></IconButton>
     )
