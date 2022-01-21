@@ -127,8 +127,8 @@ function ListOfManagedResult(props) {
                         <TableRow>
                             <TableCell>ID</TableCell>
                             <TableCell align="right">Name&nbsp;</TableCell>
-                            <TableCell align="right">Height&nbsp;</TableCell>
-                            <TableCell align="right">Weight&nbsp;</TableCell>
+                            <TableCell align="right">Height (cm)&nbsp;</TableCell>
+                            <TableCell align="right">Weight (kg)&nbsp;</TableCell>
                             <TableCell align="right">Sport&nbsp;</TableCell>
                             <TableCell align="right">Record&nbsp;</TableCell>
                             <TableCell align="right">Nationality&nbsp;</TableCell>
