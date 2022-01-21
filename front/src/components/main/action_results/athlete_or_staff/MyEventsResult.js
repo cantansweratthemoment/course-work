@@ -33,7 +33,7 @@ function MyEventsResult(props) {
                             dataRows.push(row);
                         })
                         setRows(dataRows);
-                        setStringRows(createStringRows(rows));
+                        setStringRows(createStringRows(dataRows));
                     }
                 }
             }

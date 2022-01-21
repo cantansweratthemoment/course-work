@@ -38,8 +38,8 @@ function ListOfManagedResult(props) {
         setMeow([]);
     }
 
-    function createData0(id, name, height, weight, sport, record) {
-        return {id, name, height, weight, sport, record};
+    function createData0(id, name, height, weight, sport, record, nationality) {
+        return {id, name, height, weight, sport, record, nationality};
     }
 
     function createData1(id, name) {
@@ -55,7 +55,7 @@ function ListOfManagedResult(props) {
                         let data = json.data;
                         let dataRows = [];
                         data.forEach((one_object) => {
-                            let row = createData0(one_object.person.id, one_object.person.name, one_object.height, one_object.weight, one_object.sport, one_object.record);
+                            let row = createData0(one_object.person.id, one_object.person.name, one_object.height, one_object.weight, one_object.sport, one_object.record, one_object.nationality);
                             dataRows.push(row);
                         })
                         setRows0(dataRows);
@@ -131,6 +131,7 @@ function ListOfManagedResult(props) {
                             <TableCell align="right">Weight&nbsp;</TableCell>
                             <TableCell align="right">Sport&nbsp;</TableCell>
                             <TableCell align="right">Record&nbsp;</TableCell>
+                            <TableCell align="right">Nationality&nbsp;</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -147,6 +148,7 @@ function ListOfManagedResult(props) {
                                 <TableCell align="right">{row.weight}</TableCell>
                                 <TableCell align="right">{row.sport}</TableCell>
                                 <TableCell align="right">{row.record}</TableCell>
+                                <TableCell align="right">{row.nationality}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
